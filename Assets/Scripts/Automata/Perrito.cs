@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class Perrito : MonoBehaviour
 {
+    [SerializeField]
+    private Transform ardilla;
+
+    [SerializeField]
+    private float distanciaConArdilla;
+
+    [SerializeField]
+    private float frecuenciaDeChequeo;
+
+    [SerializeField]
+    private float plenitudDigestiva = 100;
+
+    [SerializeField]
+    private float hambreMinima;
+
     // referencia para llevar el control
     private Nodo actual;
     private MonoBehaviour comportamientoActual;
@@ -37,12 +52,18 @@ public class Perrito : MonoBehaviour
         // tenemos que agregar comportamiento / behaviour dinámicamente
         comportamientoActual = gameObject.AddComponent(actual.Comportamiento) as MonoBehaviour;
 
+
+        StartCoroutine(ChecarArdilla());
+        StartCoroutine(ChecarHambre());
     }
 
     // Update is called once per frame
     void Update()
     {
         // 1era versión de transiciones - por medio de teclado
+        
+        /*
+
         if(Input.GetKeyDown(KeyCode.A)){
             CambiarEstado(Simbolos.ACARICIAR);
         }
@@ -58,8 +79,44 @@ public class Perrito : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.F)){
             CambiarEstado(Simbolos.RUIDO_FUERTE);
         }
+        */
     }
 
+    // "acariciar" por medio de click
+    void OnMouseDown(){
+        CambiarEstado(Simbolos.ACARICIAR);
+    }
+
+    // lo mejor es detonar un cambio basado en un trigger de lógica
+    // ejemplo - colisión, entrada, etc
+
+    // podemos checar en intervalos regulares utilizando una corrutina
+    IEnumerator ChecarArdilla(){
+
+        // si estamos más cerca de la ardilla
+        // que la distancia valida entonces aplicamos símbolo
+        while(true){
+
+            float distancia = Vector3.Distance(transform.position, ardilla.position);
+
+            if(distancia < distanciaConArdilla){
+                CambiarEstado(Simbolos.ARDILLA);
+            }
+
+            yield return new WaitForSeconds(frecuenciaDeChequeo);
+        }
+    }
+
+    IEnumerator ChecarHambre() {
+
+        while(true){
+
+            if(plenitudDigestiva < hambreMinima)
+                CambiarEstado(Simbolos.OLER_COMIDA);
+            
+            yield return new WaitForSeconds(frecuenciaDeChequeo);
+        }
+    }
     private void CambiarEstado(Simbolos simbolo){
         
         // primero vamos viendo a dondoe vamos
