@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Proyectil : MonoBehaviour
 {
+
+    // entre awake y start
+    // corre cada vez que se habilita el objeto
+    void OnEnable(){
+        PoolManager.Instance.DesactivarPorTiempo(gameObject, 3);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -11,7 +17,8 @@ public class Proyectil : MonoBehaviour
         // si vamos a instanciar dinámicamente 
         // 1. evaluar si podemos hacer pooling (lo vamos a checar después)
         // 2. si no vamos a hacer pooling asegurarse que haya una estrategia de destrucción
-        Destroy(gameObject, 3);
+        // Destroy(gameObject, 3);
+        
 
         // cómo obtener referencias en runtime
         // es fácil de usar 

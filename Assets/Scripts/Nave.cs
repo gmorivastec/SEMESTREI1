@@ -49,7 +49,8 @@ public class Nave : MonoBehaviour
             // hacemos esto para generar nuevos game objects en gameplay
 
             // https://docs.unity3d.com/ScriptReference/Object.Instantiate.html
-            Instantiate(proyectil, transform.position, transform.rotation);
+            // aquí va la activación pool
+            PoolManager.Instance.ActivarBala(transform.position);
 
             yield return new WaitForSeconds(frecuencia);
         }
