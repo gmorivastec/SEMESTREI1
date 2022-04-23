@@ -5,6 +5,11 @@ using UnityEngine;
 public class PoolManager : MonoBehaviour
 {
 
+
+    public int MaximoDeBalitas {
+        get { return maximoDeBalitas; }
+    }
+
     [SerializeField]
     private int maximoDeBalitas;
 
