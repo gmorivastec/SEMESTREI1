@@ -9,4 +9,12 @@ public abstract class BTDecorator : BTNode
     public BTDecorator(BTNode child){
         this.child = child;
     }
+
+    public override void Reset()
+    {
+        child.Reset();
+        
+        // reset a mi estado
+        EstadoActual = Estados.IDLE;
+    }
 }
