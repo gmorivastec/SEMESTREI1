@@ -5,7 +5,8 @@ using UnityEngine;
 public class ArbolPersonaje : MonoBehaviour
 {
 
-    private BTRepeaterInfinite root;
+    private BTRepeaterUntilFail root;
+    private BTSucceder succeder;
     private BTSequence sequence;
     private BTPasear pasear;
     private BTComer comer;
@@ -18,7 +19,8 @@ public class ArbolPersonaje : MonoBehaviour
 
         
         sequence = new BTSequence();
-        root = new BTRepeaterInfinite(sequence);
+        succeder = new BTSucceder(sequence);
+        root = new BTRepeaterUntilFail(succeder);
 
         pasear = new BTPasear(GetComponent<PasearBehaviour>());
         comer = new BTComer(GetComponent<ComerBehaviour>());

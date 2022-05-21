@@ -11,11 +11,15 @@ public class DormirBehaviour : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         stamina = 100;
         Terminado = false;
         StartCoroutine(EjecutarAccion());
+    }
+    void OnDisable()
+    {
+        StopAllCoroutines();
     }
     
     IEnumerator EjecutarAccion(){
